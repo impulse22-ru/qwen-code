@@ -1,0 +1,41 @@
+{
+  "name": "@qwen-code/tui",
+  "version": "0.1.0",
+  "description": "VSCode-like TUI for Qwen Code",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QwenLM/qwen-code.git"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "node ../../scripts/build_package.js",
+    "dev": "tsx src/App.tsx",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@qwen-code/qwen-code-core": "file:../core",
+    "@qwen-code/modes": "file:../modes",
+    "@qwen-code/prompt-enhancer": "file:../prompt-enhancer",
+    "ink": "^6.2.3",
+    "ink-box": "^2.0.0",
+    "ink-text-input": "^7.0.0",
+    "ink-select-input": "^6.0.0",
+    "ink-gradient": "^3.0.0",
+    "react": "^19.0.0",
+    "prismjs": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/prismjs": "^1.26.0",
+    "typescript": "^5.3.3",
+    "tsx": "^4.20.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

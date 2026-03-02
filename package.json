@@ -48,6 +48,8 @@
     "lint:all": "node scripts/lint.js",
     "format": "prettier --experimental-cli --write .",
     "typecheck": "npm run typecheck --workspaces --if-present",
+    "build:tui": "npm run build --workspace=@qwen-code/tui",
+    "start:tui": "tsx packages/tui/src/App.tsx",
     "check-i18n": "npm run check-i18n --workspace=packages/cli",
     "preflight": "npm run clean && npm ci && npm run format && npm run lint:ci && npm run build && npm run typecheck && npm run test:ci",
     "prepare": "husky && npm run build && npm run bundle",
