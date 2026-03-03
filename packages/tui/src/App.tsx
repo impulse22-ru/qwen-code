@@ -13,6 +13,7 @@ import {
   Tabs,
   StatusBar,
   CommandPalette,
+  Terminal,
 } from './components/index.js';
 import { useTheme, useModes, useFileSystem, usePromptEnhancer } from './hooks/index.js';
 import type { Tab, CommandItem } from './types/index.js';
@@ -27,6 +28,7 @@ const App: React.FC = () => {
     { id: 'welcome.ts', name: 'Welcome', isActive: true },
   ]);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
 
   // Hooks
   const { toggleTheme } = useTheme();
@@ -60,6 +62,12 @@ const App: React.FC = () => {
     // Ctrl+T: Toggle theme
     if (key.ctrl && input === 't') {
       toggleTheme();
+      return;
+    }
+
+    // Ctrl+`: Toggle terminal
+    if (key.ctrl && input === '`') {
+      setTerminalOpen((prev) => !prev);
       return;
     }
 
@@ -159,20 +167,25 @@ const App: React.FC = () => {
 
         {/* Editor Area */}
         <Box flexDirection="column" flexGrow={1}>
-          {/* Tabs */}
-          <Tabs
-            tabs={tabs}
-            activeTabId={activeTabId}
-            onTabSelect={setActiveTabId}
-            onTabClose={handleTabClose}
-          />
+          {terminalOpen ? (
+            <Terminal onClose={() => setTerminalOpen(false)} />
+          ) : (
+            <>
+              {/* Tabs */}
+              <Tabs
+                tabs={tabs}
+                activeTabId={activeTabId}
+                onTabClose={handleTabClose}
+              />
 
-          {/* Editor */}
-          <Editor
-            content={fileContent || '// Select a file or create new one'}
-            fileName={activeTabId}
-            cursorPosition={{ line: 1, column: 1 }}
-          />
+              {/* Editor */}
+              <Editor
+                content={fileContent || '// Select a file or create new one'}
+                fileName={activeTabId}
+                cursorPosition={{ line: 1, column: 1 }}
+              />
+            </>
+          )}
 
           {/* Prompt Enhancer Status */}
           {enhancing && (
@@ -203,6 +216,7 @@ const App: React.FC = () => {
         gitBranch="feature/tui-qwen"
         promptTokenCount={lastEnhanced?.scores.after.overall}
         enhancing={enhancing}
+        terminalOpen={terminalOpen}
       />
     </Box>
   );

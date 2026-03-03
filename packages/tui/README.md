@@ -38,7 +38,8 @@ npm run start:tui
 | `Ctrl+M` | Switch to next mode |
 | `Ctrl+E` | Toggle sidebar |
 | `Ctrl+T` | Toggle theme (Dark/Light) |
-| `Esc` | Close command palette |
+| `Ctrl+\`` | Toggle Terminal |
+| `Esc` | Close command palette/Terminal |
 
 ## 🎭 Modes Integration
 
@@ -76,12 +77,14 @@ Toggle with `Ctrl+T`
 ## 📁 Features
 
 - ✅ Activity Bar with icons
-- ✅ File Explorer sidebar
+- ✅ File Explorer sidebar (clickable files)
+- ✅ Search files by name
 - ✅ Modes sidebar
 - ✅ Syntax-highlighted editor
 - ✅ Tabbed interface
 - ✅ Status bar with mode info
 - ✅ Command palette
+- ✅ Built-in Terminal (Ctrl+`)
 - ✅ Full Modes integration
 - ✅ Prompt Enhancer integration
 - ✅ Dark/Light themes

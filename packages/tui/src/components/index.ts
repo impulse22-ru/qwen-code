@@ -10,3 +10,6 @@ export { Editor } from './Editor.js';
 export { Tabs } from './Tabs.js';
 export { StatusBar } from './StatusBar.js';
 export { CommandPalette } from './CommandPalette.js';
+export { FileExplorer } from './FileExplorer.js';
+export { SearchFiles } from './SearchFiles.js';
+export { Terminal } from './Terminal.js';

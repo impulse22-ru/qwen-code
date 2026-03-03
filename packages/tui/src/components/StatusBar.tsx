@@ -18,6 +18,7 @@ export interface StatusBarProps {
   gitBranch?: string;
   promptTokenCount?: number;
   enhancing?: boolean;
+  terminalOpen?: boolean;
 }
 
 export const StatusBar: React.FC<StatusBarProps> = ({
@@ -29,6 +30,7 @@ export const StatusBar: React.FC<StatusBarProps> = ({
   gitBranch,
   promptTokenCount,
   enhancing = false,
+  terminalOpen = false,
 }) => {
   const { currentTheme } = useTheme();
 
@@ -55,6 +57,11 @@ export const StatusBar: React.FC<StatusBarProps> = ({
         {enhancing && (
           <Text color="yellow" marginRight={2}>
             ⚡ Enhancing...
+          </Text>
+        )}
+        {terminalOpen && (
+          <Text color="white" marginRight={2}>
+            💻 Terminal
           </Text>
         )}
         <Text color="white">

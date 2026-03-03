@@ -8,6 +8,8 @@ import React from 'react';
 import { Box, Text } from 'ink';
 import type { ModeDefinition } from '@qwen-code/modes';
 import type { FileTreeItem } from '../types/index.js';
+import { FileExplorer } from './FileExplorer.js';
+import { SearchFiles } from './SearchFiles.js';
 
 export interface SidebarProps {
   activeSection: 'files' | 'modes' | 'search';
@@ -59,14 +61,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onModeSelect,
 }) => {
   const renderFiles = () => {
-    if (files.length === 0) {
-      return (
-        <Box padding={1}>
-          <Text color="gray">No files loaded</Text>
-        </Box>
-      );
-    }
-    return <FileTree items={files} depth={0} onFileSelect={onFileSelect} />;
+    return <FileExplorer files={files} onFileSelect={onFileSelect} />;
+  };
+
+  const renderSearch = () => {
+    return <SearchFiles files={files} onFileSelect={onFileSelect} />;
   };
 
   const renderModes = () => {
@@ -103,11 +102,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <Box flexDirection="column" flexGrow={1}>
         {activeSection === 'files' && renderFiles()}
         {activeSection === 'modes' && renderModes()}
-        {activeSection === 'search' && (
-          <Box padding={1}>
-            <Text color="gray">Search coming soon...</Text>
-          </Box>
-        )}
+        {activeSection === 'search' && renderSearch()}
       </Box>
     </Box>
   );
