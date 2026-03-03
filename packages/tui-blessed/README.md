@@ -1,8 +1,17 @@
 # TUI Qwen - Blessed Implementation
 
-VSCode-like Terminal UI using **neo-blessed** and **blessed-contrib**.
+⚠️ **IMPORTANT**: This implementation has compatibility issues with Node.js 22+. 
+Please use the **Ink-based TUI** (`packages/tui/`) instead.
 
-## 🚀 Quick Start
+VSCode-like Terminal UI using **blessed** and **blessed-contrib**.
+
+## 🚨 Known Issues
+
+- `blessed-contrib` has compatibility issues with Node.js 22+
+- `strip-ansi` module conflicts
+- **Recommendation**: Use `packages/tui/` (Ink-based) for production
+
+## 🚀 Quick Start (if using Node.js 18-20)
 
 ### Install Dependencies
 

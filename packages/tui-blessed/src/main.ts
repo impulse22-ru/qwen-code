@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import * as blessed from 'neo-blessed';
+import * as blessed from 'blessed';
 import * as contrib from 'blessed-contrib';
 import { highlight } from 'cli-highlight';
 import type { ModeDefinition } from '@qwen-code/modes';

@@ -13,7 +13,7 @@
     "@qwen-code/qwen-code-core": "file:../core",
     "@qwen-code/modes": "file:../modes",
     "@qwen-code/prompt-enhancer": "file:../prompt-enhancer",
-    "neo-blessed": "^0.2.0",
+    "blessed": "^0.1.81",
     "blessed-contrib": "^4.11.0",
     "cli-highlight": "^2.1.11"
   },
