@@ -211,6 +211,7 @@ const App: React.FC = () => {
 export default App;
 
 // Render the app
-if (require.main === module) {
+const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+if (isMainModule) {
   render(<App />);
 }

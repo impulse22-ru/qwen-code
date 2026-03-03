@@ -4,12 +4,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Prism from 'prismjs';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-tsx';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-markdown';
+/**
+ * Simple syntax highlighting without Prism.js
+ * Basic keyword highlighting for TypeScript/JavaScript
+ */
+
 import type { Theme } from '../types/index.js';
 
 export interface Token {
@@ -17,26 +16,65 @@ export interface Token {
   content: string;
 }
 
+// Simple keywords for basic highlighting
+const KEYWORDS = [
+  'const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while',
+  'class', 'interface', 'type', 'import', 'export', 'from', 'default',
+  'async', 'await', 'try', 'catch', 'throw', 'new', 'this', 'typeof',
+];
+
 /**
- * Highlight code using Prism.js
+ * Simple syntax highlighting for code
  */
 export const highlightCode = (
   code: string,
   language: string = 'typescript'
 ): Token[] => {
-  const grammar = Prism.languages[language] || Prism.languages.typescript;
-  const tokens = Prism.tokenize(code, grammar);
+  // Very basic tokenization
+  const tokens: Token[] = [];
+  let remaining = code;
 
-  return tokens.map((token: unknown) => {
-    if (typeof token === 'string') {
-      return { type: 'plain', content: token };
+  while (remaining.length > 0) {
+    // Check for strings
+    const stringMatch = remaining.match(/^(['"`])(?:\\.|(?!\1).)*\1/);
+    if (stringMatch) {
+      tokens.push({ type: 'string', content: stringMatch[0] });
+      remaining = remaining.slice(stringMatch[0].length);
+      continue;
     }
-    const prismToken = token as { type: string; content: string };
-    return {
-      type: prismToken.type,
-      content: prismToken.content.toString(),
-    };
-  });
+
+    // Check for comments
+    const commentMatch = remaining.match(/^\/\/.*|\/\*[\s\S]*?\*\//);
+    if (commentMatch) {
+      tokens.push({ type: 'comment', content: commentMatch[0] });
+      remaining = remaining.slice(commentMatch[0].length);
+      continue;
+    }
+
+    // Check for keywords
+    const keywordMatch = remaining.match(/^[a-zA-Z_][a-zA-Z0-9_]*/);
+    if (keywordMatch) {
+      const word = keywordMatch[0];
+      const type = KEYWORDS.includes(word) ? 'keyword' : 'plain';
+      tokens.push({ type, content: word });
+      remaining = remaining.slice(word.length);
+      continue;
+    }
+
+    // Check for numbers
+    const numberMatch = remaining.match(/^\d+\.?\d*/);
+    if (numberMatch) {
+      tokens.push({ type: 'number', content: numberMatch[0] });
+      remaining = remaining.slice(numberMatch[0].length);
+      continue;
+    }
+
+    // Default: single character
+    tokens.push({ type: 'plain', content: remaining[0] });
+    remaining = remaining.slice(1);
+  }
+
+  return tokens;
 };
 
 /**
@@ -46,13 +84,8 @@ export const getTokenColor = (type: string, theme: Theme): string => {
   const colorMap: Record<string, string> = {
     keyword: theme.syntax.keyword,
     string: theme.syntax.string,
-    function: theme.syntax.function,
     comment: theme.syntax.comment,
     number: theme.syntax.number,
-    operator: theme.syntax.operator,
-    class: theme.syntax.type,
-    'class-name': theme.syntax.type,
-    type: theme.syntax.type,
     plain: theme.colors.foreground,
   };
   return colorMap[type] || colorMap.plain;
