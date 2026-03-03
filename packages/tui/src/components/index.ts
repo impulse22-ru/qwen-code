@@ -13,3 +13,5 @@ export { CommandPalette } from './CommandPalette.js';
 export { FileExplorer } from './FileExplorer.js';
 export { SearchFiles } from './SearchFiles.js';
 export { Terminal } from './Terminal.js';
+export { GitPanel } from './GitPanel.js';
+export { SettingsPanel } from './SettingsPanel.js';

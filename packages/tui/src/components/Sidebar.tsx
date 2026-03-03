@@ -10,9 +10,11 @@ import type { ModeDefinition } from '@qwen-code/modes';
 import type { FileTreeItem } from '../types/index.js';
 import { FileExplorer } from './FileExplorer.js';
 import { SearchFiles } from './SearchFiles.js';
+import { GitPanel } from './GitPanel.js';
+import { useGit } from '../hooks/useGit.js';
 
 export interface SidebarProps {
-  activeSection: 'files' | 'modes' | 'search';
+  activeSection: 'files' | 'modes' | 'search' | 'git';
   files?: FileTreeItem[];
   modes?: ModeDefinition[];
   currentMode?: ModeDefinition;
@@ -60,12 +62,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onFileSelect,
   onModeSelect,
 }) => {
+  const projectRoot = process.cwd();
+  const { status: gitStatus } = useGit(projectRoot);
+
   const renderFiles = () => {
     return <FileExplorer files={files} onFileSelect={onFileSelect} />;
   };
 
   const renderSearch = () => {
     return <SearchFiles files={files} onFileSelect={onFileSelect} />;
+  };
+
+  const renderGit = () => {
+    return <GitPanel status={gitStatus} onFileSelect={onFileSelect} />;
   };
 
   const renderModes = () => {
@@ -103,6 +112,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {activeSection === 'files' && renderFiles()}
         {activeSection === 'modes' && renderModes()}
         {activeSection === 'search' && renderSearch()}
+        {activeSection === 'git' && renderGit()}
       </Box>
     </Box>
   );
