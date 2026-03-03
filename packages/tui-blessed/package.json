@@ -1,0 +1,25 @@
+{
+  "name": "@qwen-code/tui-blessed",
+  "version": "0.1.0",
+  "description": "VSCode-like TUI for Qwen Code using blessed",
+  "type": "module",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/main.ts",
+    "start": "node dist/main.js"
+  },
+  "dependencies": {
+    "@qwen-code/qwen-code-core": "file:../core",
+    "@qwen-code/modes": "file:../modes",
+    "@qwen-code/prompt-enhancer": "file:../prompt-enhancer",
+    "neo-blessed": "^0.2.0",
+    "blessed-contrib": "^4.11.0",
+    "cli-highlight": "^2.1.11"
+  },
+  "devDependencies": {
+    "@types/blessed": "^0.1.25",
+    "typescript": "^5.3.3",
+    "tsx": "^4.20.3"
+  }
+}
